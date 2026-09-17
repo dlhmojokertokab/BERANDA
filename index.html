@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="assets/logo-dlh.png" />
   <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi Dinas Lingkungan Hidup Kabupaten Mojokerto." />
   <title>BERANDA — Semua Aplikasi, Satu Pintu</title>
-  <!-- v0.4 fixed-screen -->
+  <!-- v0.6 logo-safe -->
 
   <style>
     :root{
@@ -114,23 +114,26 @@
     }
 
     .brand-logo{
-      width:48px;
-      height:48px;
+      width:52px;
+      height:52px;
       border-radius:15px;
       border:1px solid var(--line);
       background:var(--glass);
       display:grid;
       place-items:center;
-      overflow:hidden;
+      overflow:visible;
+      padding:6px;
       backdrop-filter:blur(16px);
       box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     .brand-logo img{
-      width:100%;
-      height:100%;
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:100%;
+      max-height:100%;
       object-fit:contain;
-      padding:6px;
     }
 
     .logo-fallback{
@@ -327,23 +330,26 @@
     }
 
     .selector-logo{
-      width:54px;
-      height:54px;
+      width:58px;
+      height:58px;
       margin:0 auto 14px;
       border-radius:17px;
       border:1px solid var(--line);
       background:var(--glass);
       display:grid;
       place-items:center;
-      overflow:hidden;
+      overflow:visible;
+      padding:7px;
       backdrop-filter:blur(16px);
     }
 
     .selector-logo img{
-      width:100%;
-      height:100%;
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:100%;
+      max-height:100%;
       object-fit:contain;
-      padding:7px;
     }
 
     .selector-kicker{
@@ -639,7 +645,7 @@
     @media (max-width:520px){
       .scene{padding:24px 10px}
       .brand{font-size:11px}
-      .brand-logo{width:43px;height:43px}
+      .brand-logo{width:48px;height:48px}
       .headline{font-size:clamp(54px,19vw,88px)}
       .tagline{font-size:20px}
       .door-area{min-height:350px;margin-top:26px}
@@ -754,8 +760,8 @@
     }
 
     .selector-logo{
-      width:clamp(40px,6vh,54px);
-      height:clamp(40px,6vh,54px);
+      width:clamp(44px,6vh,58px);
+      height:clamp(44px,6vh,58px);
       margin-bottom:clamp(7px,1.2vh,12px);
     }
 
@@ -984,10 +990,6 @@
         <button id="doorButton" class="door-button" type="button" aria-label="Masuk ke BERANDA">
           <div class="door">
             <div class="door-panel">
-              <div class="door-title">
-                <strong>BERANDA</strong>
-                <small>Ketuk untuk masuk</small>
-              </div>
               <div class="handle"></div>
             </div>
           </div>
