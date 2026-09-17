@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071713" />
+  <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi Dinas Lingkungan Hidup Kabupaten Mojokerto." />
+  <title>BERANDA — Semua Aplikasi, Satu Pintu</title>
+
+  <style>
+    :root{
+      --bg:#06120f;
+      --bg2:#0a211a;
+      --text:#f5fff8;
+      --muted:#a9c0b5;
+      --line:rgba(255,255,255,.12);
+      --glass:rgba(255,255,255,.065);
+      --glass2:rgba(255,255,255,.095);
+      --accent:#78d8a6;
+      --accent2:#a6efc5;
+      --shadow:0 30px 90px rgba(0,0,0,.42);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(86,186,130,.18), transparent 34%),
+        radial-gradient(circle at 15% 30%, rgba(53,114,84,.15), transparent 25%),
+        linear-gradient(160deg,var(--bg),var(--bg2) 58%,#040b09);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 86%);
+    }
+
+    button,a{font:inherit}
+    button{color:inherit}
+    .hidden{display:none!important}
+
+    .scene{
+      min-height:100vh;
+      width:100%;
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      padding:30px 18px;
+    }
+
+    .scene::after{
+      content:"";
+      position:absolute;
+      width:min(82vw,760px);
+      height:min(82vw,760px);
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(103,213,158,.12),transparent 66%);
+      filter:blur(12px);
+      pointer-events:none;
+    }
+
+    /* ---------- INTRO ---------- */
+
+    #intro{
+      z-index:3;
+      transition:
+        opacity .55s ease,
+        transform .75s cubic-bezier(.2,.85,.2,1),
+        filter .55s ease;
+    }
+
+    #intro.entering{
+      opacity:0;
+      transform:scale(2.25);
+      filter:blur(12px);
+      pointer-events:none;
+    }
+
+    .intro-wrap{
+      position:relative;
+      z-index:4;
+      width:min(980px,100%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.04em;
+    }
+
+    .brand-logo{
+      width:48px;
+      height:48px;
+      border-radius:15px;
+      border:1px solid var(--line);
+      background:var(--glass);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      backdrop-filter:blur(16px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:6px;
+    }
+
+    .logo-fallback{
+      width:23px;
+      height:23px;
+      opacity:.9;
+    }
+
+    .headline{
+      margin:0;
+      font-size:clamp(58px,11vw,138px);
+      line-height:.88;
+      letter-spacing:-.065em;
+      font-weight:950;
+    }
+
+    .headline span{
+      color:transparent;
+      -webkit-text-stroke:1px rgba(245,255,248,.56);
+    }
+
+    .tagline{
+      margin:14px 0 0;
+      font-size:clamp(18px,3vw,30px);
+      font-weight:650;
+      letter-spacing:-.03em;
+      color:#ecf9f1;
+    }
+
+    .door-area{
+      margin-top:34px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      perspective:1400px;
+      position:relative;
+      min-height:440px;
+    }
+
+    .halo{
+      position:absolute;
+      width:420px;
+      height:420px;
+      top:4px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(120,216,166,.20),transparent 66%);
+      animation:pulse 4.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(.94);opacity:.65}
+      50%{transform:scale(1.06);opacity:1}
+    }
+
+    .door-button{
+      appearance:none;
+      border:0;
+      background:transparent;
+      padding:0;
+      cursor:pointer;
+      position:relative;
+      z-index:3;
+      outline:none;
+      border-radius:190px 190px 34px 34px;
+    }
+
+    .door-button:focus-visible{
+      box-shadow:0 0 0 4px rgba(120,216,166,.22);
+    }
+
+    .door{
+      width:284px;
+      height:418px;
+      padding:17px;
+      border-radius:150px 150px 32px 32px;
+      background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.1);
+      transform:rotateY(-5deg) rotateX(1deg);
+      transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        box-shadow .35s ease;
+      backdrop-filter:blur(20px);
+    }
+
+    .door-button:hover .door{
+      transform:rotateY(-1deg) translateY(-5px);
+      box-shadow:0 38px 100px rgba(0,0,0,.48),0 0 50px rgba(120,216,166,.08);
+    }
+
+    .door-panel{
+      height:100%;
+      position:relative;
+      overflow:hidden;
+      border-radius:136px 136px 22px 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(circle at 30% 20%,rgba(255,255,255,.10),transparent 24%),
+        linear-gradient(155deg,rgba(120,216,166,.20),rgba(255,255,255,.025)),
+        #09291f;
+    }
+
+    .door-panel::before{
+      content:"";
+      position:absolute;
+      inset:17px;
+      border:1px solid rgba(255,255,255,.075);
+      border-radius:124px 124px 15px 15px;
+    }
+
+    .door-title{
+      position:absolute;
+      top:93px;
+      left:0;
+      right:0;
+    }
+
+    .door-title strong{
+      display:block;
+      font-size:28px;
+      letter-spacing:-.04em;
+    }
+
+    .door-title small{
+      display:block;
+      margin-top:7px;
+      color:var(--muted);
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.17em;
+    }
+
+    .handle{
+      position:absolute;
+      right:37px;
+      top:53%;
+      width:17px;
+      height:57px;
+      border-radius:999px;
+      background:linear-gradient(#d8eadd,#779c8b);
+      box-shadow:0 8px 18px rgba(0,0,0,.42);
+    }
+
+    .door-floor{
+      position:absolute;
+      width:440px;
+      height:78px;
+      bottom:2px;
+      border-radius:50%;
+      background:radial-gradient(ellipse,rgba(0,0,0,.42),transparent 67%);
+      filter:blur(5px);
+    }
+
+    .enter-label{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.05em;
+      animation:breathe 2.7s ease-in-out infinite;
+    }
+
+    @keyframes breathe{
+      0%,100%{opacity:.56}
+      50%{opacity:1}
+    }
+
+    /* ---------- SELECTOR ---------- */
+
+    #selector{
+      z-index:4;
+      opacity:0;
+      transform:scale(.92);
+      pointer-events:none;
+      transition:
+        opacity .55s ease,
+        transform .65s cubic-bezier(.2,.85,.2,1);
+    }
+
+    #selector.active{
+      opacity:1;
+      transform:scale(1);
+      pointer-events:auto;
+    }
+
+    .selector-wrap{
+      position:relative;
+      z-index:3;
+      width:min(1180px,100%);
+      text-align:center;
+    }
+
+    .selector-top{
+      margin-bottom:26px;
+    }
+
+    .selector-logo{
+      width:54px;
+      height:54px;
+      margin:0 auto 14px;
+      border-radius:17px;
+      border:1px solid var(--line);
+      background:var(--glass);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      backdrop-filter:blur(16px);
+    }
+
+    .selector-logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:7px;
+    }
+
+    .selector-kicker{
+      margin:0 0 5px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .selector-title{
+      margin:0;
+      font-size:clamp(34px,6vw,62px);
+      letter-spacing:-.05em;
+      line-height:1;
+    }
+
+    .selector-sub{
+      margin:10px auto 0;
+      max-width:590px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:14px;
+    }
+
+    .carousel{
+      display:grid;
+      grid-template-columns:96px minmax(0,1fr) 96px;
+      gap:18px;
+      align-items:center;
+      width:100%;
+      max-width:920px;
+      margin:0 auto;
+    }
+
+    .nav-btn{
+      width:64px;
+      height:64px;
+      margin:auto;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:var(--glass);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      font-size:25px;
+      backdrop-filter:blur(16px);
+      transition:.25s ease;
+    }
+
+    .nav-btn:hover{
+      transform:translateY(-2px);
+      background:var(--glass2);
+      border-color:rgba(120,216,166,.30);
+    }
+
+    .nav-btn:focus-visible{
+      outline:3px solid rgba(120,216,166,.22);
+      outline-offset:3px;
+    }
+
+    .stage{
+      min-width:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      min-height:420px;
+    }
+
+    .app-panel{
+      width:min(680px,100%);
+      min-height:390px;
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+      text-align:left;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));
+      box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter:blur(22px);
+      transition:
+        opacity .25s ease,
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease;
+    }
+
+    .app-panel.switching{
+      opacity:0;
+      transform:scale(.965) translateY(8px);
+    }
+
+    .app-panel::before{
+      content:"";
+      position:absolute;
+      width:360px;
+      height:360px;
+      top:-160px;
+      right:-130px;
+      border-radius:50%;
+      background:radial-gradient(circle,var(--app-glow,rgba(120,216,166,.25)),transparent 68%);
+      pointer-events:none;
+    }
+
+    .panel-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .app-icon{
+      width:78px;
+      height:78px;
+      border-radius:25px;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.07);
+      display:grid;
+      place-items:center;
+      font-size:38px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+    }
+
+    .app-category{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.055);
+      color:var(--muted);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .app-number{
+      margin-top:30px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      position:relative;
+      z-index:2;
+    }
+
+    .app-name{
+      margin:8px 0 10px;
+      font-size:clamp(38px,7vw,70px);
+      line-height:.95;
+      letter-spacing:-.055em;
+      position:relative;
+      z-index:2;
+    }
+
+    .app-description{
+      max-width:540px;
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      position:relative;
+      z-index:2;
+    }
+
+    .panel-actions{
+      margin-top:26px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:12px;
+      position:relative;
+      z-index:2;
+    }
+
+    .open-btn{
+      min-height:52px;
+      padding:0 20px;
+      border-radius:17px;
+      border:1px solid transparent;
+      background:linear-gradient(135deg,var(--app-accent,#78d8a6),#d2f7e1);
+      color:#051a12;
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:.25s ease;
+      box-shadow:0 15px 34px rgba(0,0,0,.18);
+    }
+
+    .open-btn:hover{transform:translateY(-2px)}
+
+    .back-btn{
+      min-height:52px;
+      padding:0 17px;
+      border-radius:17px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      cursor:pointer;
+    }
+
+    .dots{
+      margin-top:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      flex-wrap:wrap;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border:0;
+      border-radius:999px;
+      padding:0;
+      cursor:pointer;
+      background:rgba(255,255,255,.20);
+      transition:.25s ease;
+    }
+
+    .dot.active{
+      width:34px;
+      background:var(--accent);
+    }
+
+    .preview-row{
+      max-width:760px;
+      margin:18px auto 0;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .preview-btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      color:var(--muted);
+      min-height:38px;
+      padding:0 12px;
+      border-radius:13px;
+      cursor:pointer;
+      font-size:12px;
+      transition:.2s ease;
+    }
+
+    .preview-btn.active{
+      background:rgba(120,216,166,.12);
+      border-color:rgba(120,216,166,.25);
+      color:var(--text);
+    }
+
+    .keyboard-hint{
+      margin-top:18px;
+      color:#7e9d8e;
+      font-size:11px;
+    }
+
+    @media (max-width:760px){
+      .carousel{
+        grid-template-columns:54px minmax(0,1fr) 54px;
+        gap:7px;
+      }
+      .nav-btn{
+        width:48px;
+        height:48px;
+        border-radius:16px;
+        font-size:20px;
+      }
+      .stage{min-height:410px}
+      .app-panel{
+        min-height:370px;
+        padding:22px;
+        border-radius:27px;
+      }
+      .app-icon{
+        width:64px;
+        height:64px;
+        border-radius:21px;
+        font-size:31px;
+      }
+      .door-area{min-height:390px}
+      .door{width:246px;height:360px}
+      .door-title{top:78px}
+      .door-floor{width:360px}
+      .halo{width:350px;height:350px}
+    }
+
+    @media (max-width:520px){
+      .scene{padding:24px 10px}
+      .brand{font-size:11px}
+      .brand-logo{width:43px;height:43px}
+      .headline{font-size:clamp(54px,19vw,88px)}
+      .tagline{font-size:20px}
+      .door-area{min-height:350px;margin-top:26px}
+      .door{width:220px;height:322px;padding:13px}
+      .door-panel{border-radius:112px 112px 17px 17px}
+      .door-panel::before{inset:13px;border-radius:101px 101px 13px 13px}
+      .door-title{top:67px}
+      .door-title strong{font-size:23px}
+      .handle{right:28px;height:49px}
+      .door-floor{width:320px}
+      .selector-top{margin-bottom:16px}
+      .selector-sub{padding:0 12px}
+      .carousel{
+        grid-template-columns:42px minmax(0,1fr) 42px;
+        gap:5px;
+      }
+      .nav-btn{
+        width:40px;
+        height:48px;
+        border-radius:14px;
+      }
+      .app-panel{
+        min-height:390px;
+        padding:19px;
+        border-radius:24px;
+      }
+      .app-category{font-size:9px;padding:8px}
+      .app-number{margin-top:24px}
+      .app-name{font-size:43px}
+      .app-description{font-size:14px}
+      .panel-actions{flex-direction:column;align-items:stretch}
+      .open-btn,.back-btn{justify-content:center;width:100%}
+      .preview-row{padding:0 6px}
+      .keyboard-hint{display:none}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== INTRO / PINTU ==================== -->
+  <section id="intro" class="scene" aria-label="Pintu masuk BERANDA">
+    <div class="intro-wrap">
+      <div class="brand">
+        <div class="brand-logo">
+          <!-- TARUH LOGO KAMU DI assets/logo-dlh.png -->
+          <img src="assets/logo-dlh.png" alt="Logo DLH Kabupaten Mojokerto"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="logo-fallback" style="display:none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19.5 4.5C13.2 4.7 7.5 7.8 5.1 13.2c-1 2.3-.6 4.5.8 5.7 1.3 1.1 3.2 1.3 5.1.5 5.5-2.4 8.3-8.3 8.5-14.9Z" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M5.4 18.7c2.7-4.2 5.8-6.9 10.2-9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span>Dinas Lingkungan Hidup Kabupaten Mojokerto</span>
+      </div>
+
+      <h1 class="headline">BER<span>ANDA</span></h1>
+      <p class="tagline">Semua Aplikasi, Satu Pintu.</p>
+
+      <div class="door-area">
+        <div class="halo"></div>
+        <div class="door-floor"></div>
+
+        <button id="doorButton" class="door-button" type="button" aria-label="Masuk ke BERANDA">
+          <div class="door">
+            <div class="door-panel">
+              <div class="door-title">
+                <strong>BERANDA</strong>
+                <small>Ketuk untuk masuk</small>
+              </div>
+              <div class="handle"></div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="enter-label">KETUK PINTU UNTUK MASUK</div>
+    </div>
+  </section>
+
+  <!-- ==================== APP SELECTOR ==================== -->
+  <section id="selector" class="scene hidden" aria-label="Pilih aplikasi">
+    <div class="selector-wrap">
+      <div class="selector-top">
+        <div class="selector-logo">
+          <img src="assets/logo-dlh.png" alt="Logo DLH Kabupaten Mojokerto"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="logo-fallback" style="display:none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19.5 4.5C13.2 4.7 7.5 7.8 5.1 13.2c-1 2.3-.6 4.5.8 5.7 1.3 1.1 3.2 1.3 5.1.5 5.5-2.4 8.3-8.3 8.5-14.9Z" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M5.4 18.7c2.7-4.2 5.8-6.9 10.2-9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <p class="selector-kicker">BERANDA</p>
+        <h2 class="selector-title">Pilih pintumu.</h2>
+        <p class="selector-sub">Geser pilihan seperti memilih karakter. Setiap pintu membawamu ke aplikasi yang berbeda.</p>
+      </div>
+
+      <div class="carousel">
+        <button id="prevBtn" class="nav-btn" type="button" aria-label="Aplikasi sebelumnya">←</button>
+
+        <div class="stage">
+          <article id="appPanel" class="app-panel">
+            <div class="panel-head">
+              <div id="appIcon" class="app-icon">📸</div>
+              <div id="appCategory" class="app-category">Dokumentasi</div>
+            </div>
+
+            <div id="appNumber" class="app-number">01 / 04</div>
+            <h3 id="appName" class="app-name">SI-ALIF</h3>
+            <p id="appDescription" class="app-description">
+              Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.
+            </p>
+
+            <div class="panel-actions">
+              <a id="openApp" class="open-btn"
+                 href="https://dlhmojokertokab.github.io/Si-ALIF"
+                 target="_blank" rel="noopener noreferrer">
+                Buka aplikasi <span aria-hidden="true">↗</span>
+              </a>
+
+              <button id="backButton" class="back-btn" type="button">Kembali ke pintu</button>
+            </div>
+          </article>
+        </div>
+
+        <button id="nextBtn" class="nav-btn" type="button" aria-label="Aplikasi berikutnya">→</button>
+      </div>
+
+      <div id="dots" class="dots" aria-label="Pilih aplikasi"></div>
+      <div id="previewRow" class="preview-row"></div>
+      <div class="keyboard-hint">Tip: gunakan tombol ← dan → pada keyboard</div>
+    </div>
+  </section>
+
+  <script>
+    const apps = [
+      {
+        name: "SI-ALIF",
+        icon: "📸",
+        category: "Dokumentasi",
+        description: "Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.",
+        url: "https://dlhmojokertokab.github.io/Si-ALIF",
+        accent: "#76D7A5",
+        glow: "rgba(118,215,165,.28)"
+      },
+      {
+        name: "ASBUN",
+        icon: "📑",
+        category: "Pelayanan",
+        description: "Asistensi Berkas Usaha dan Perizinan untuk memudahkan proses asistensi pada Bidang TALING.",
+        url: "https://dlhmojokertokab.github.io/ASBUN",
+        accent: "#E7C982",
+        glow: "rgba(231,201,130,.24)"
+      },
+      {
+        name: "LEMARI",
+        icon: "🗄️",
+        category: "Arsip",
+        description: "Pusat akses dokumen dan arsip digital untuk kebutuhan kerja internal DLH.",
+        url: "https://dlhmojokertokab.github.io/LEMARI",
+        accent: "#D79696",
+        glow: "rgba(215,150,150,.24)"
+      },
+      {
+        name: "SIKENDALI",
+        icon: "📊",
+        category: "Monitoring",
+        description: "Monitoring target, realisasi, dan statistik kinerja untuk membantu pengendalian pelaksanaan kegiatan.",
+        url: "https://sikendalidlh.pythonanywhere.com/",
+        accent: "#8DB8E9",
+        glow: "rgba(141,184,233,.25)"
+      }
+    ];
+
+    const intro = document.getElementById("intro");
+    const selector = document.getElementById("selector");
+    const doorButton = document.getElementById("doorButton");
+    const backButton = document.getElementById("backButton");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const appPanel = document.getElementById("appPanel");
+    const appIcon = document.getElementById("appIcon");
+    const appCategory = document.getElementById("appCategory");
+    const appNumber = document.getElementById("appNumber");
+    const appName = document.getElementById("appName");
+    const appDescription = document.getElementById("appDescription");
+    const openApp = document.getElementById("openApp");
+    const dots = document.getElementById("dots");
+    const previewRow = document.getElementById("previewRow");
+
+    let currentIndex = 0;
+    let switchTimer = null;
+
+    function pad(num){
+      return String(num).padStart(2,"0");
+    }
+
+    function buildNavigation(){
+      apps.forEach((app,index)=>{
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "dot" + (index === currentIndex ? " active" : "");
+        dot.setAttribute("aria-label","Pilih " + app.name);
+        dot.addEventListener("click",()=>showApp(index));
+        dots.appendChild(dot);
+
+        const preview = document.createElement("button");
+        preview.type = "button";
+        preview.className = "preview-btn" + (index === currentIndex ? " active" : "");
+        preview.textContent = app.name;
+        preview.addEventListener("click",()=>showApp(index));
+        previewRow.appendChild(preview);
+      });
+    }
+
+    function updateNavigation(){
+      [...dots.children].forEach((dot,index)=>{
+        dot.classList.toggle("active",index === currentIndex);
+      });
+      [...previewRow.children].forEach((button,index)=>{
+        button.classList.toggle("active",index === currentIndex);
+      });
+    }
+
+    function renderApp(){
+      const app = apps[currentIndex];
+
+      appIcon.textContent = app.icon;
+      appCategory.textContent = app.category;
+      appNumber.textContent = pad(currentIndex + 1) + " / " + pad(apps.length);
+      appName.textContent = app.name;
+      appDescription.textContent = app.description;
+      openApp.href = app.url;
+
+      appPanel.style.setProperty("--app-accent",app.accent);
+      appPanel.style.setProperty("--app-glow",app.glow);
+      updateNavigation();
+    }
+
+    function showApp(index){
+      if(index < 0) index = apps.length - 1;
+      if(index >= apps.length) index = 0;
+      if(index === currentIndex) return;
+
+      currentIndex = index;
+      appPanel.classList.add("switching");
+
+      clearTimeout(switchTimer);
+      switchTimer = setTimeout(()=>{
+        renderApp();
+        requestAnimationFrame(()=>{
+          appPanel.classList.remove("switching");
+        });
+      },180);
+    }
+
+    function enterBeranda(){
+      intro.classList.add("entering");
+
+      setTimeout(()=>{
+        intro.classList.add("hidden");
+        selector.classList.remove("hidden");
+
+        requestAnimationFrame(()=>{
+          selector.classList.add("active");
+          renderApp();
+          nextBtn.focus({preventScroll:true});
+        });
+      },560);
+    }
+
+    function leaveBeranda(){
+      selector.classList.remove("active");
+
+      setTimeout(()=>{
+        selector.classList.add("hidden");
+        intro.classList.remove("hidden");
+
+        requestAnimationFrame(()=>{
+          intro.classList.remove("entering");
+          doorButton.focus({preventScroll:true});
+        });
+      },420);
+    }
+
+    prevBtn.addEventListener("click",()=>showApp(currentIndex - 1));
+    nextBtn.addEventListener("click",()=>showApp(currentIndex + 1));
+    doorButton.addEventListener("click",enterBeranda);
+    backButton.addEventListener("click",leaveBeranda);
+
+    document.addEventListener("keydown",(event)=>{
+      if(!selector.classList.contains("active")) return;
+
+      if(event.key === "ArrowLeft"){
+        event.preventDefault();
+        showApp(currentIndex - 1);
+      }
+
+      if(event.key === "ArrowRight"){
+        event.preventDefault();
+        showApp(currentIndex + 1);
+      }
+
+      if(event.key === "Escape"){
+        event.preventDefault();
+        leaveBeranda();
+      }
+    });
+
+    buildNavigation();
+    renderApp();
+  </script>
+</body>
+</html>
