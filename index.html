@@ -3,1234 +3,280 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#071713" />
+  <meta name="theme-color" content="#081310" />
   <link rel="icon" type="image/png" href="assets/logo-dlh.png" />
   <link rel="shortcut icon" href="assets/logo-dlh.png" />
   <link rel="apple-touch-icon" href="assets/logo-dlh.png" />
-  <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi Dinas Lingkungan Hidup Kabupaten Mojokerto." />
   <title>BERANDA — Semua Aplikasi, Satu Pintu</title>
-  <!-- v0.6 logo-safe -->
-
+  <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi DLH Kabupaten Mojokerto." />
   <style>
     :root{
-      --bg:#06120f;
-      --bg2:#0a211a;
-      --text:#f5fff8;
-      --muted:#a9c0b5;
-      --line:rgba(255,255,255,.12);
-      --glass:rgba(255,255,255,.065);
-      --glass2:rgba(255,255,255,.095);
-      --accent:#78d8a6;
-      --accent2:#a6efc5;
-      --shadow:0 30px 90px rgba(0,0,0,.42);
+      --bg:#081310; --bg2:#0c221a; --text:#f5fff9; --muted:#a8beb3; --line:rgba(255,255,255,.11);
+      --glass:rgba(255,255,255,.06); --glass2:rgba(255,255,255,.10); --shadow:0 30px 90px rgba(0,0,0,.45);
+      --panel-w:min(1040px,100%); --app-accent:#8fe6ba; --app-glow:rgba(143,230,186,.22);
     }
-
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      min-height:100vh;
-      overflow-x:hidden;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 50% -10%, rgba(86,186,130,.18), transparent 34%),
-        radial-gradient(circle at 15% 30%, rgba(53,114,84,.15), transparent 25%),
-        linear-gradient(160deg,var(--bg),var(--bg2) 58%,#040b09);
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-      background-size:34px 34px;
-      mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 86%);
-    }
-
-    button,a{font:inherit}
-    button{color:inherit}
-    .hidden{display:none!important}
-
-    .scene{
-      min-height:100vh;
-      width:100%;
-      position:relative;
-      overflow:hidden;
-      display:grid;
-      place-items:center;
-      padding:30px 18px;
-    }
-
-    .scene::after{
-      content:"";
-      position:absolute;
-      width:min(82vw,760px);
-      height:min(82vw,760px);
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(103,213,158,.12),transparent 66%);
-      filter:blur(12px);
-      pointer-events:none;
-    }
-
-    /* ---------- INTRO ---------- */
-
-    #intro{
-      z-index:3;
-      transition:
-        opacity .55s ease,
-        transform .75s cubic-bezier(.2,.85,.2,1),
-        filter .55s ease;
-    }
-
-    #intro.entering{
-      opacity:0;
-      transform:scale(2.25);
-      filter:blur(12px);
-      pointer-events:none;
-    }
-
-    .intro-wrap{
-      position:relative;
-      z-index:4;
-      width:min(980px,100%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
-      color:var(--muted);
-      font-size:13px;
-      letter-spacing:.04em;
-    }
-
-    .brand-logo{
-      width:52px;
-      height:52px;
-      border-radius:15px;
-      border:1px solid var(--line);
-      background:var(--glass);
-      display:grid;
-      place-items:center;
-      overflow:visible;
-      padding:6px;
-      backdrop-filter:blur(16px);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
-    }
-
-    .brand-logo img{
-      display:block;
-      width:auto;
-      height:auto;
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-    }
-
-    .logo-fallback{
-      width:23px;
-      height:23px;
-      opacity:.9;
-    }
-
-    .headline{
-      margin:0;
-      font-size:clamp(58px,11vw,138px);
-      line-height:.88;
-      letter-spacing:-.065em;
-      font-weight:950;
-    }
-
-    .headline span{
-      color:transparent;
-      -webkit-text-stroke:1px rgba(245,255,248,.56);
-    }
-
-    .tagline{
-      margin:14px 0 0;
-      font-size:clamp(18px,3vw,30px);
-      font-weight:650;
-      letter-spacing:-.03em;
-      color:#ecf9f1;
-    }
-
-    .door-area{
-      margin-top:34px;
-      width:100%;
-      display:flex;
-      justify-content:center;
-      perspective:1400px;
-      position:relative;
-      min-height:440px;
-    }
-
-    .halo{
-      position:absolute;
-      width:420px;
-      height:420px;
-      top:4px;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(120,216,166,.20),transparent 66%);
-      animation:pulse 4.2s ease-in-out infinite;
-    }
-
-    @keyframes pulse{
-      0%,100%{transform:scale(.94);opacity:.65}
-      50%{transform:scale(1.06);opacity:1}
-    }
-
-    .door-button{
-      appearance:none;
-      border:0;
-      background:transparent;
-      padding:0;
-      cursor:pointer;
-      position:relative;
-      z-index:3;
-      outline:none;
-      border-radius:190px 190px 34px 34px;
-    }
-
-    .door-button:focus-visible{
-      box-shadow:0 0 0 4px rgba(120,216,166,.22);
-    }
-
-    .door{
-      width:284px;
-      height:418px;
-      padding:17px;
-      border-radius:150px 150px 32px 32px;
-      background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.025));
-      border:1px solid rgba(255,255,255,.15);
-      box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.1);
-      transform:rotateY(-5deg) rotateX(1deg);
-      transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        box-shadow .35s ease;
-      backdrop-filter:blur(20px);
-    }
-
-    .door-button:hover .door{
-      transform:rotateY(-1deg) translateY(-5px);
-      box-shadow:0 38px 100px rgba(0,0,0,.48),0 0 50px rgba(120,216,166,.08);
-    }
-
-    .door-panel{
-      height:100%;
-      position:relative;
-      overflow:hidden;
-      border-radius:136px 136px 22px 22px;
-      border:1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.10),transparent 24%),
-        linear-gradient(155deg,rgba(120,216,166,.20),rgba(255,255,255,.025)),
-        #09291f;
-    }
-
-    .door-panel::before{
-      content:"";
-      position:absolute;
-      inset:17px;
-      border:1px solid rgba(255,255,255,.075);
-      border-radius:124px 124px 15px 15px;
-    }
-
-    .door-title{
-      position:absolute;
-      top:93px;
-      left:0;
-      right:0;
-    }
-
-    .door-title strong{
-      display:block;
-      font-size:28px;
-      letter-spacing:-.04em;
-    }
-
-    .door-title small{
-      display:block;
-      margin-top:7px;
-      color:var(--muted);
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:.17em;
-    }
-
-    .handle{
-      position:absolute;
-      right:37px;
-      top:53%;
-      width:17px;
-      height:57px;
-      border-radius:999px;
-      background:linear-gradient(#d8eadd,#779c8b);
-      box-shadow:0 8px 18px rgba(0,0,0,.42);
-    }
-
-    .door-floor{
-      position:absolute;
-      width:440px;
-      height:78px;
-      bottom:2px;
-      border-radius:50%;
-      background:radial-gradient(ellipse,rgba(0,0,0,.42),transparent 67%);
-      filter:blur(5px);
-    }
-
-    .enter-label{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:13px;
-      letter-spacing:.05em;
-      animation:breathe 2.7s ease-in-out infinite;
-    }
-
-    @keyframes breathe{
-      0%,100%{opacity:.56}
-      50%{opacity:1}
-    }
-
-    /* ---------- SELECTOR ---------- */
-
-    #selector{
-      z-index:4;
-      opacity:0;
-      transform:scale(.92);
-      pointer-events:none;
-      transition:
-        opacity .55s ease,
-        transform .65s cubic-bezier(.2,.85,.2,1);
-    }
-
-    #selector.active{
-      opacity:1;
-      transform:scale(1);
-      pointer-events:auto;
-    }
-
-    .selector-wrap{
-      position:relative;
-      z-index:3;
-      width:min(1180px,100%);
-      text-align:center;
-    }
-
-    .selector-top{
-      margin-bottom:26px;
-    }
-
-    .selector-logo{
-      width:58px;
-      height:58px;
-      margin:0 auto 14px;
-      border-radius:17px;
-      border:1px solid var(--line);
-      background:var(--glass);
-      display:grid;
-      place-items:center;
-      overflow:visible;
-      padding:7px;
-      backdrop-filter:blur(16px);
-    }
-
-    .selector-logo img{
-      display:block;
-      width:auto;
-      height:auto;
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-    }
-
-    .selector-kicker{
-      margin:0 0 5px;
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    .selector-title{
-      margin:0;
-      font-size:clamp(34px,6vw,62px);
-      letter-spacing:-.05em;
-      line-height:1;
-    }
-
-    .selector-sub{
-      margin:10px auto 0;
-      max-width:590px;
-      color:var(--muted);
-      line-height:1.65;
-      font-size:14px;
-    }
-
-    .carousel{
-      display:grid;
-      grid-template-columns:96px minmax(0,1fr) 96px;
-      gap:18px;
-      align-items:center;
-      width:100%;
-      max-width:920px;
-      margin:0 auto;
-    }
-
-    .nav-btn{
-      width:64px;
-      height:64px;
-      margin:auto;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:var(--glass);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      font-size:25px;
-      backdrop-filter:blur(16px);
-      transition:.25s ease;
-    }
-
-    .nav-btn:hover{
-      transform:translateY(-2px);
-      background:var(--glass2);
-      border-color:rgba(120,216,166,.30);
-    }
-
-    .nav-btn:focus-visible{
-      outline:3px solid rgba(120,216,166,.22);
-      outline-offset:3px;
-    }
-
-    .stage{
-      min-width:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      min-height:420px;
-    }
-
-    .app-panel{
-      width:min(680px,100%);
-      min-height:390px;
-      border:1px solid var(--line);
-      border-radius:34px;
-      padding:30px;
-      position:relative;
-      overflow:hidden;
-      text-align:left;
-      background:
-        linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));
-      box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06);
-      backdrop-filter:blur(22px);
-      transition:
-        opacity .25s ease,
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        border-color .35s ease;
-    }
-
-    .app-panel.switching{
-      opacity:0;
-      transform:scale(.965) translateY(8px);
-    }
-
-    .app-panel::before{
-      content:"";
-      position:absolute;
-      width:360px;
-      height:360px;
-      top:-160px;
-      right:-130px;
-      border-radius:50%;
-      background:radial-gradient(circle,var(--app-glow,rgba(120,216,166,.25)),transparent 68%);
-      pointer-events:none;
-    }
-
-    .panel-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:18px;
-      position:relative;
-      z-index:2;
-    }
-
-    .app-icon{
-      width:78px;
-      height:78px;
-      border-radius:25px;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(255,255,255,.07);
-      display:grid;
-      place-items:center;
-      font-size:38px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
-    }
-
-    .app-category{
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.055);
-      color:var(--muted);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-    }
-
-    .app-number{
-      margin-top:30px;
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      position:relative;
-      z-index:2;
-    }
-
-    .app-name{
-      margin:8px 0 10px;
-      font-size:clamp(38px,7vw,70px);
-      line-height:.95;
-      letter-spacing:-.055em;
-      position:relative;
-      z-index:2;
-    }
-
-    .app-description{
-      max-width:540px;
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.7;
-      position:relative;
-      z-index:2;
-    }
-
-    .panel-actions{
-      margin-top:26px;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:12px;
-      position:relative;
-      z-index:2;
-    }
-
-    .open-btn{
-      min-height:52px;
-      padding:0 20px;
-      border-radius:17px;
-      border:1px solid transparent;
-      background:linear-gradient(135deg,var(--app-accent,#78d8a6),#d2f7e1);
-      color:#051a12;
-      font-weight:900;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      transition:.25s ease;
-      box-shadow:0 15px 34px rgba(0,0,0,.18);
-    }
-
-    .open-btn:hover{transform:translateY(-2px)}
-
-    .back-btn{
-      min-height:52px;
-      padding:0 17px;
-      border-radius:17px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      color:var(--text);
-      cursor:pointer;
-    }
-
-    .dots{
-      margin-top:24px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:9px;
-      flex-wrap:wrap;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border:0;
-      border-radius:999px;
-      padding:0;
-      cursor:pointer;
-      background:rgba(255,255,255,.20);
-      transition:.25s ease;
-    }
-
-    .dot.active{
-      width:34px;
-      background:var(--accent);
-    }
-
-    .preview-row{
-      max-width:760px;
-      margin:18px auto 0;
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .preview-btn{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.045);
-      color:var(--muted);
-      min-height:38px;
-      padding:0 12px;
-      border-radius:13px;
-      cursor:pointer;
-      font-size:12px;
-      transition:.2s ease;
-    }
-
-    .preview-btn.active{
-      background:rgba(120,216,166,.12);
-      border-color:rgba(120,216,166,.25);
-      color:var(--text);
-    }
-
-    .keyboard-hint{
-      margin-top:18px;
-      color:#7e9d8e;
-      font-size:11px;
-    }
-
-    @media (max-width:760px){
-      .carousel{
-        grid-template-columns:54px minmax(0,1fr) 54px;
-        gap:7px;
-      }
-      .nav-btn{
-        width:48px;
-        height:48px;
-        border-radius:16px;
-        font-size:20px;
-      }
-      .stage{min-height:410px}
-      .app-panel{
-        min-height:370px;
-        padding:22px;
-        border-radius:27px;
-      }
-      .app-icon{
-        width:64px;
-        height:64px;
-        border-radius:21px;
-        font-size:31px;
-      }
-      .door-area{min-height:390px}
-      .door{width:246px;height:360px}
-      .door-title{top:78px}
-      .door-floor{width:360px}
-      .halo{width:350px;height:350px}
-    }
-
-    @media (max-width:520px){
-      .scene{padding:24px 10px}
-      .brand{font-size:11px}
-      .brand-logo{width:48px;height:48px}
-      .headline{font-size:clamp(54px,19vw,88px)}
-      .tagline{font-size:20px}
-      .door-area{min-height:350px;margin-top:26px}
-      .door{width:220px;height:322px;padding:13px}
-      .door-panel{border-radius:112px 112px 17px 17px}
-      .door-panel::before{inset:13px;border-radius:101px 101px 13px 13px}
-      .door-title{top:67px}
-      .door-title strong{font-size:23px}
-      .handle{right:28px;height:49px}
-      .door-floor{width:320px}
-      .selector-top{margin-bottom:16px}
-      .selector-sub{padding:0 12px}
-      .carousel{
-        grid-template-columns:42px minmax(0,1fr) 42px;
-        gap:5px;
-      }
-      .nav-btn{
-        width:40px;
-        height:48px;
-        border-radius:14px;
-      }
-      .app-panel{
-        min-height:390px;
-        padding:19px;
-        border-radius:24px;
-      }
-      .app-category{font-size:9px;padding:8px}
-      .app-number{margin-top:24px}
-      .app-name{font-size:43px}
-      .app-description{font-size:14px}
-      .panel-actions{flex-direction:column;align-items:stretch}
-      .open-btn,.back-btn{justify-content:center;width:100%}
-      .preview-row{padding:0 6px}
-      .keyboard-hint{display:none}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      *{animation:none!important;transition:none!important}
-    }
-  
-    /* =========================================================
-       v0.4 — FIXED SCREEN / GAME SELECT MODE
-       Seluruh BERANDA dikunci ke 1 viewport. Tidak ada scroll.
-       ========================================================= */
-    html, body{
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-
-    body{
-      overscroll-behavior:none;
-    }
-
-    .scene{
-      width:100%;
-      height:100vh;
-      height:100dvh;
-      min-height:0;
-      overflow:hidden;
-      padding:clamp(12px,2.3vh,26px) 18px;
-    }
-
-    .intro-wrap{
-      height:100%;
-      justify-content:center;
-      min-height:0;
-    }
-
-    .brand{
-      margin-bottom:clamp(8px,1.6vh,18px);
-    }
-
-    .tagline{
-      margin-top:clamp(7px,1.4vh,14px);
-    }
-
-    .door-area{
-      margin-top:clamp(14px,2.7vh,30px);
-      min-height:0;
-      height:min(48vh,430px);
-      align-items:center;
-    }
-
-    .door{
-      width:min(29vh,284px);
-      height:min(43vh,418px);
-      min-width:190px;
-      min-height:278px;
-    }
-
-    .door-floor{
-      bottom:0;
-    }
-
-    .enter-label{
-      margin-top:clamp(6px,1.5vh,16px);
-    }
-
-    /* Selector jadi layout fixed: header / stage / dots / preview */
-    .selector-wrap{
-      height:100%;
-      min-height:0;
-      display:grid;
-      grid-template-rows:auto minmax(0,1fr) auto auto auto;
-      align-items:center;
-      align-content:stretch;
-    }
-
-    .selector-top{
-      margin-bottom:clamp(8px,1.8vh,20px);
-    }
-
-    .selector-logo{
-      width:clamp(44px,6vh,58px);
-      height:clamp(44px,6vh,58px);
-      margin-bottom:clamp(7px,1.2vh,12px);
-    }
-
-    .selector-title{
-      font-size:clamp(28px,5.2vh,58px);
-    }
-
-    .selector-sub{
-      margin-top:clamp(5px,1vh,9px);
-      line-height:1.45;
-    }
-
-    .carousel{
-      width:min(920px,100%);
-      height:100%;
-      min-height:0;
-      align-self:stretch;
-      grid-template-columns:clamp(44px,7vw,84px) minmax(0,1fr) clamp(44px,7vw,84px);
-      gap:clamp(5px,1.4vw,16px);
-    }
-
-    .stage{
-      height:100%;
-      min-height:0;
-      align-self:stretch;
-    }
-
-    .app-panel{
-      width:min(680px,100%);
-      height:min(100%,390px);
-      min-height:0;
-      max-height:100%;
-      padding:clamp(17px,3vh,28px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .panel-head{
-      flex:0 0 auto;
-    }
-
-    .app-icon{
-      width:clamp(58px,9vh,76px);
-      height:clamp(58px,9vh,76px);
-      font-size:clamp(28px,5vh,38px);
-    }
-
-    .app-number{
-      margin-top:clamp(13px,2.2vh,24px);
-    }
-
-    .app-name{
-      margin-top:clamp(4px,.8vh,8px);
-      margin-bottom:clamp(5px,1vh,9px);
-      font-size:clamp(34px,7vh,66px);
-    }
-
-    .app-description{
-      line-height:1.5;
-      font-size:clamp(13px,1.8vh,15px);
-    }
-
-    .panel-actions{
-      margin-top:clamp(14px,2.4vh,24px);
-    }
-
-    .open-btn,
-    .back-btn{
-      min-height:clamp(44px,6vh,52px);
-    }
-
-    .nav-btn{
-      width:clamp(42px,7vh,62px);
-      height:clamp(42px,7vh,62px);
-    }
-
-    .dots{
-      margin-top:clamp(7px,1.4vh,15px);
-    }
-
-    .preview-row{
-      margin-top:clamp(6px,1.2vh,12px);
-    }
-
-    .keyboard-hint{
-      margin-top:clamp(4px,1vh,10px);
-    }
-
-    /* Layar desktop/laptop yang pendek: pangkas elemen non-esensial */
-    @media (max-height: 720px){
-      .selector-sub,
-      .keyboard-hint{
-        display:none;
-      }
-
-      .selector-top{
-        margin-bottom:6px;
-      }
-
-      .app-panel{
-        height:min(100%,350px);
-      }
-
-      .preview-row{
-        margin-top:5px;
-      }
-
-      .door-area{
-        height:min(45vh,340px);
-      }
-
-      .brand{
-        margin-bottom:6px;
-      }
-
-      .enter-label{
-        margin-top:5px;
-      }
-    }
-
-    @media (max-height: 610px){
-      .preview-row{
-        display:none;
-      }
-
-      .selector-logo{
-        display:none;
-      }
-
-      .selector-kicker{
-        margin-bottom:2px;
-      }
-
-      .app-panel{
-        height:min(100%,310px);
-      }
-
-      .app-description{
-        line-height:1.35;
-      }
-
-      .panel-actions{
-        margin-top:10px;
-      }
-    }
-
-    /* HP: tetap satu layar, selector tidak boleh keluar viewport */
-    @media (max-width:520px){
-      .scene{
-        padding:10px 8px;
-      }
-
-      .selector-wrap{
-        grid-template-rows:auto minmax(0,1fr) auto auto auto;
-      }
-
-      .selector-sub{
-        font-size:12px;
-        line-height:1.35;
-      }
-
-      .carousel{
-        grid-template-columns:38px minmax(0,1fr) 38px;
-        gap:4px;
-      }
-
-      .nav-btn{
-        width:38px;
-        height:46px;
-      }
-
-      .app-panel{
-        height:min(100%,385px);
-        padding:16px;
-      }
-
-      .app-name{
-        font-size:clamp(34px,6.5vh,44px);
-      }
-
-      .panel-actions{
-        gap:8px;
-      }
-
-      .open-btn,
-      .back-btn{
-        min-height:44px;
-      }
-
-      .preview-btn{
-        min-height:32px;
-        padding:0 9px;
-        font-size:10px;
-      }
-    }
-
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:
+      radial-gradient(circle at 50% -5%, rgba(107,195,144,.16), transparent 30%),
+      radial-gradient(circle at 15% 20%, rgba(29,88,61,.18), transparent 26%),
+      linear-gradient(160deg,var(--bg),var(--bg2) 58%, #050c09 100%);}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+      linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);background-size:34px 34px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.85), transparent 88%);}
+    body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at center, transparent 52%, rgba(0,0,0,.28) 100%);}
+    button,a{font:inherit} a{text-decoration:none;color:inherit} img{display:block;max-width:100%} .hidden{display:none!important}
+    .scene{width:100%;height:100vh;height:100dvh;padding:18px;display:grid;place-items:center;position:relative;overflow:hidden}
+    #intro{z-index:2;transition:opacity .55s ease, transform .75s cubic-bezier(.2,.8,.2,1), filter .55s ease}
+    #intro.entering{opacity:0;transform:scale(2.15);filter:blur(14px);pointer-events:none}
+    .intro-wrap{width:min(1100px,100%);height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;position:relative;z-index:2}
+    .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0}
+    .title{margin:0;font-size:clamp(58px,10vw,130px);line-height:.88;letter-spacing:-.07em;font-weight:950}
+    .subtitle{margin:0;font-size:clamp(18px,2.4vw,26px);color:#ecf8f0;font-weight:650;letter-spacing:-.03em}
+    .intro-meta{margin-top:2px;font-size:14px;color:var(--muted);max-width:620px;line-height:1.55}
+    .door-zone{margin-top:16px;position:relative;width:min(560px,100%);height:min(58vh,520px);min-height:320px;display:grid;place-items:center}
+    .spotlight{position:absolute;width:min(78vw,700px);height:min(78vw,700px);border-radius:50%;background:radial-gradient(circle, rgba(242,233,210,.18), transparent 58%);filter:blur(6px);opacity:.75;animation:pulse 4.4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(.95);opacity:.65}50%{transform:scale(1.04);opacity:1}}
+    .shadow-floor{position:absolute;bottom:20px;width:78%;height:62px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(0,0,0,.55), transparent 68%);filter:blur(6px)}
+    .door-button{appearance:none;border:0;background:transparent;padding:0;cursor:pointer;border-radius:160px 160px 34px 34px;outline:none;position:relative;z-index:2}
+    .door-button:focus-visible{box-shadow:0 0 0 4px rgba(255,255,255,.18), 0 0 0 9px rgba(143,230,186,.18)}
+    .door{width:min(42vw,320px);height:min(63vw,450px);min-width:220px;min-height:310px;border-radius:165px 165px 34px 34px;padding:17px;background:linear-gradient(160deg, rgba(255,255,255,.26), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.22);box-shadow:0 24px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.14);transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;transform:rotateY(-6deg);backdrop-filter:blur(16px)}
+    .door-button:hover .door{transform:rotateY(-1deg) translateY(-6px) scale(1.01);box-shadow:0 32px 110px rgba(0,0,0,.54), 0 0 48px rgba(255,236,196,.10)}
+    .door-panel{width:100%;height:100%;border-radius:148px 148px 22px 22px;position:relative;overflow:hidden;background:
+      radial-gradient(circle at 35% 22%, rgba(255,255,255,.34), transparent 24%),
+      linear-gradient(150deg, #f4eedf 0%, #e9dfc8 55%, #ddd0b4 100%);
+      border:1px solid rgba(93,71,35,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12), inset 0 -18px 35px rgba(120,88,26,.10)}
+    .door-panel::before{content:"";position:absolute;inset:18px;border-radius:132px 132px 16px 16px;border:1px solid rgba(113,89,49,.16)}
+    .door-panel::after{content:"";position:absolute;inset:38px 60px 38px 60px;border-radius:120px 120px 12px 12px;border:1px solid rgba(115,91,52,.10)}
+    .handle{position:absolute;right:40px;top:54%;width:18px;height:64px;border-radius:999px;background:linear-gradient(#c69b49, #8e6420);box-shadow:0 6px 18px rgba(0,0,0,.34)}
+    .door-hint{margin-top:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);animation:breathe 2.4s ease-in-out infinite}
+    @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+    #selector{opacity:0;transform:scale(.94);pointer-events:none;transition:opacity .55s ease, transform .65s cubic-bezier(.2,.8,.2,1)}
+    #selector.active{opacity:1;transform:scale(1);pointer-events:auto}
+    .selector-wrap{width:var(--panel-w);height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;align-items:center;position:relative;z-index:2}
+    .selector-head{text-align:center;margin-bottom:6px}
+    .selector-head h2{margin:6px 0 0;font-size:clamp(34px,5vw,62px);line-height:1;letter-spacing:-.05em}
+    .selector-desc{margin:10px auto 0;max-width:620px;color:var(--muted);font-size:14px;line-height:1.55}
+    .selector-main{width:100%;min-height:0;display:grid;grid-template-columns:70px minmax(0,1fr) 70px;gap:10px;align-items:center}
+    .nav{width:58px;height:58px;margin:auto;border-radius:18px;border:1px solid var(--line);background:var(--glass);color:var(--text);cursor:pointer;display:grid;place-items:center;font-size:24px;transition:.25s ease;backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .nav:hover{background:var(--glass2);transform:translateY(-2px);border-color:rgba(255,255,255,.22)}
+    .stage{min-width:0;min-height:0;display:grid;place-items:center}
+    .app-card{width:min(900px,100%);height:min(100%,560px);min-height:0;border-radius:34px;border:1px solid var(--line);background:linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));backdrop-filter:blur(18px);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden;position:relative;display:grid;grid-template-columns:1.05fr .95fr;transition:opacity .24s ease, transform .35s cubic-bezier(.2,.8,.2,1)}
+    .app-card.switching{opacity:0;transform:scale(.97) translateY(8px)}
+    .app-card::before{content:"";position:absolute;width:480px;height:480px;top:-220px;right:-180px;border-radius:50%;background:radial-gradient(circle, var(--app-glow), transparent 68%);pointer-events:none}
+    .app-visual{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;padding:24px;background:radial-gradient(circle at center, rgba(255,255,255,.05), transparent 58%)}
+    .aura{position:absolute;width:min(46vw,380px);height:min(46vw,380px);border-radius:50%;background:radial-gradient(circle, var(--app-glow), transparent 66%);filter:blur(8px)}
+    .pedestal{position:absolute;bottom:44px;width:68%;height:32px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(0,0,0,.45), transparent 67%);filter:blur(5px);opacity:.95}
+    .icon-shell{width:min(80%,340px);aspect-ratio:1 / 1;border-radius:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03));display:flex;align-items:center;justify-content:center;padding:16px;position:relative;z-index:2;box-shadow:0 20px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.06)}
+    .icon-shell.round{border-radius:50%}
+    .hero-icon{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 34px rgba(0,0,0,.16));user-select:none;-webkit-user-drag:none}
+    .app-info{min-width:0;min-height:0;padding:36px 34px 34px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .mini-brand{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+    .mini-brand img{width:34px;height:34px;object-fit:contain;border-radius:12px;padding:4px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08)}
+    .app-index{margin-top:26px;font-size:12px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+    .app-name{margin:8px 0 10px;font-size:clamp(40px,6vw,72px);line-height:.93;letter-spacing:-.06em}
+    .app-tag{align-self:flex-start;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.055);color:var(--muted);font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+    .app-text{margin:16px 0 0;color:var(--muted);font-size:15px;line-height:1.65;max-width:460px}
+    .action-row{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
+    .btn{min-height:50px;padding:0 20px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;transition:.25s ease}
+    .btn-primary{background:linear-gradient(135deg, var(--app-accent), #f4fff8);color:#082016;border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 34px rgba(0,0,0,.18)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);cursor:pointer}
+    .thumb-strip{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+    .thumb{min-width:88px;min-height:84px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.045);padding:10px 12px;cursor:pointer;transition:.22s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .thumb:hover{transform:translateY(-2px);background:rgba(255,255,255,.07)}
+    .thumb.active{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:var(--text);box-shadow:0 10px 28px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.05)}
+    .thumb img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.15))}
+    .thumb-name{font-size:11px;line-height:1.2;font-weight:700;letter-spacing:.03em;text-align:center}
+    .dots{margin-top:12px;display:flex;justify-content:center;gap:9px}
+    .dot{width:10px;height:10px;border-radius:999px;border:0;padding:0;background:rgba(255,255,255,.18);cursor:pointer;transition:.2s ease}
+    .dot.active{width:34px;background:var(--app-accent)}
+    .hint{margin-top:10px;text-align:center;color:#7d978b;font-size:11px;letter-spacing:.06em}
+    @media (max-width:980px){
+      .selector-main{grid-template-columns:56px minmax(0,1fr) 56px}
+      .app-card{grid-template-columns:1fr;height:min(100%,640px)}
+      .app-visual{padding:20px 18px 0;min-height:240px}
+      .pedestal{bottom:24px}.icon-shell{width:min(62vw,250px)}.app-info{padding:20px 24px 24px}.app-index{margin-top:4px}
+    }
+    @media (max-width:620px){
+      .scene{padding:10px}.title{font-size:clamp(52px,18vw,88px)}.subtitle{font-size:19px}.intro-meta{font-size:13px}
+      .door-zone{height:min(52vh,420px);min-height:280px}.door{min-width:190px;min-height:280px}
+      .selector-head h2{font-size:clamp(28px,9vw,44px)}.selector-desc{font-size:12px;line-height:1.4;max-width:480px}
+      .selector-main{grid-template-columns:42px minmax(0,1fr) 42px;gap:4px}
+      .nav{width:40px;height:48px;border-radius:14px;font-size:20px}
+      .app-card{height:min(100%,620px);border-radius:26px}.app-visual{min-height:200px}
+      .icon-shell{width:min(68vw,220px);border-radius:28px}.app-info{padding:18px 18px 20px}
+      .mini-brand{font-size:12px}.mini-brand img{width:30px;height:30px}.app-name{font-size:44px}
+      .app-text{font-size:14px;line-height:1.5}.action-row{margin-top:18px;flex-direction:column}.btn{width:100%}
+      .thumb-strip{gap:8px}.thumb{min-width:68px;min-height:74px;padding:8px;border-radius:18px}.thumb img{width:28px;height:28px}.thumb-name{font-size:10px}.hint{font-size:10px}
+    }
+    @media (max-height:760px){
+      .intro-meta,.selector-desc,.hint{display:none}.door-zone{margin-top:6px;height:min(52vh,400px)}
+      .app-card{height:min(100%,520px)}.app-text{line-height:1.48}.thumb{min-height:72px}
+    }
+    @media (max-height:650px){
+      .kicker{display:none}.door-hint{display:none}.thumb-strip{margin-top:8px}.thumb{min-width:72px;min-height:64px}
+    }
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
 </head>
-
 <body>
-
-  <!-- ==================== INTRO / PINTU ==================== -->
   <section id="intro" class="scene" aria-label="Pintu masuk BERANDA">
     <div class="intro-wrap">
-      <div class="brand">
-        <div class="brand-logo">
-          <!-- TARUH LOGO KAMU DI assets/logo-dlh.png -->
-          <img src="assets/logo-dlh.png" alt="Logo DLH Kabupaten Mojokerto"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <svg class="logo-fallback" style="display:none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M19.5 4.5C13.2 4.7 7.5 7.8 5.1 13.2c-1 2.3-.6 4.5.8 5.7 1.3 1.1 3.2 1.3 5.1.5 5.5-2.4 8.3-8.3 8.5-14.9Z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M5.4 18.7c2.7-4.2 5.8-6.9 10.2-9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span>Dinas Lingkungan Hidup Kabupaten Mojokerto</span>
-      </div>
-
-      <h1 class="headline">BER<span>ANDA</span></h1>
-      <p class="tagline">Semua Aplikasi, Satu Pintu.</p>
-
-      <div class="door-area">
-        <div class="halo"></div>
-        <div class="door-floor"></div>
-
+      <p class="kicker">DLH Kabupaten Mojokerto</p>
+      <h1 class="title">BERANDA</h1>
+      <p class="subtitle">Semua Aplikasi, Satu Pintu.</p>
+      <div class="intro-meta">Masuk lewat satu pintu, lalu pilih aplikasi seperti memilih karakter. Rapi, cepat, dan bikin orang takjub duluan.</div>
+      <div class="door-zone">
+        <div class="spotlight"></div><div class="shadow-floor"></div>
         <button id="doorButton" class="door-button" type="button" aria-label="Masuk ke BERANDA">
-          <div class="door">
-            <div class="door-panel">
-              <div class="handle"></div>
-            </div>
-          </div>
+          <div class="door"><div class="door-panel"><div class="handle"></div></div></div>
         </button>
       </div>
-
-      <div class="enter-label">KETUK PINTU UNTUK MASUK</div>
+      <div class="door-hint">Klik pintu untuk masuk</div>
     </div>
   </section>
 
-  <!-- ==================== APP SELECTOR ==================== -->
   <section id="selector" class="scene hidden" aria-label="Pilih aplikasi">
     <div class="selector-wrap">
-      <div class="selector-top">
-        <div class="selector-logo">
-          <img src="assets/logo-dlh.png" alt="Logo DLH Kabupaten Mojokerto"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <svg class="logo-fallback" style="display:none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M19.5 4.5C13.2 4.7 7.5 7.8 5.1 13.2c-1 2.3-.6 4.5.8 5.7 1.3 1.1 3.2 1.3 5.1.5 5.5-2.4 8.3-8.3 8.5-14.9Z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M5.4 18.7c2.7-4.2 5.8-6.9 10.2-9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-
-        <p class="selector-kicker">BERANDA</p>
-        <h2 class="selector-title">Pilih pintumu.</h2>
-        <p class="selector-sub">Geser pilihan seperti memilih karakter. Setiap pintu membawamu ke aplikasi yang berbeda.</p>
+      <div class="selector-head">
+        <p class="kicker">BERANDA</p>
+        <h2>Pilih pintumu.</h2>
+        <div class="selector-desc">Tiap aplikasi punya identitas sendiri. Geser kiri–kanan, pilih yang kamu mau, lalu langsung masuk.</div>
       </div>
-
-      <div class="carousel">
-        <button id="prevBtn" class="nav-btn" type="button" aria-label="Aplikasi sebelumnya">←</button>
-
+      <div class="selector-main">
+        <button id="prevBtn" class="nav" type="button" aria-label="Aplikasi sebelumnya">←</button>
         <div class="stage">
-          <article id="appPanel" class="app-panel">
-            <div class="panel-head">
-              <div id="appIcon" class="app-icon">📸</div>
-              <div id="appCategory" class="app-category">Dokumentasi</div>
+          <article id="appCard" class="app-card">
+            <div class="app-visual">
+              <div class="aura"></div><div class="pedestal"></div>
+              <div id="iconShell" class="icon-shell round">
+                <img id="heroIcon" class="hero-icon" src="assets/icon-si-alif.png" alt="Ikon aplikasi" />
+              </div>
             </div>
-
-            <div id="appNumber" class="app-number">01 / 04</div>
-            <h3 id="appName" class="app-name">SI-ALIF</h3>
-            <p id="appDescription" class="app-description">
-              Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.
-            </p>
-
-            <div class="panel-actions">
-              <a id="openApp" class="open-btn"
-                 href="https://dlhmojokertokab.github.io/Si-ALIF"
-                 target="_blank" rel="noopener noreferrer">
-                Buka aplikasi <span aria-hidden="true">↗</span>
-              </a>
-
-              <button id="backButton" class="back-btn" type="button">Kembali ke pintu</button>
+            <div class="app-info">
+              <div class="mini-brand">
+                <img id="miniIcon" src="assets/icon-si-alif.png" alt="" />
+                <span>Dinas Lingkungan Hidup Kabupaten Mojokerto</span>
+              </div>
+              <div id="appIndex" class="app-index">01 / 04</div>
+              <div id="appTag" class="app-tag">Dokumentasi</div>
+              <h3 id="appName" class="app-name">SI-ALIF</h3>
+              <p id="appText" class="app-text">Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.</p>
+              <div class="action-row">
+                <a id="openApp" class="btn btn-primary" href="https://dlhmojokertokab.github.io/Si-ALIF" target="_blank" rel="noopener noreferrer">Masuk ke aplikasi <span aria-hidden="true">↗</span></a>
+                <button id="backBtn" class="btn btn-secondary" type="button">Kembali ke pintu</button>
+              </div>
             </div>
           </article>
         </div>
-
-        <button id="nextBtn" class="nav-btn" type="button" aria-label="Aplikasi berikutnya">→</button>
+        <button id="nextBtn" class="nav" type="button" aria-label="Aplikasi berikutnya">→</button>
       </div>
-
-      <div id="dots" class="dots" aria-label="Pilih aplikasi"></div>
-      <div id="previewRow" class="preview-row"></div>
-      <div class="keyboard-hint">Tip: gunakan tombol ← dan → pada keyboard</div>
+      <div id="thumbStrip" class="thumb-strip"></div>
+      <div id="dots" class="dots"></div>
+      <div class="hint">Tip: gunakan tombol keyboard ← → untuk berpindah</div>
     </div>
   </section>
 
   <script>
     const apps = [
-      {
-        name: "SI-ALIF",
-        icon: "📸",
-        category: "Dokumentasi",
-        description: "Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.",
-        url: "https://dlhmojokertokab.github.io/Si-ALIF",
-        accent: "#76D7A5",
-        glow: "rgba(118,215,165,.28)"
-      },
-      {
-        name: "ASBUN",
-        icon: "📑",
-        category: "Pelayanan",
-        description: "Asistensi Berkas Usaha dan Perizinan untuk memudahkan proses asistensi pada Bidang TALING.",
-        url: "https://dlhmojokertokab.github.io/ASBUN",
-        accent: "#E7C982",
-        glow: "rgba(231,201,130,.24)"
-      },
-      {
-        name: "LEMARI",
-        icon: "🗄️",
-        category: "Arsip",
-        description: "Pusat akses dokumen dan arsip digital untuk kebutuhan kerja internal DLH.",
-        url: "https://dlhmojokertokab.github.io/LEMARI",
-        accent: "#D79696",
-        glow: "rgba(215,150,150,.24)"
-      },
-      {
-        name: "SIKENDALI",
-        icon: "📊",
-        category: "Monitoring",
-        description: "Monitoring target, realisasi, dan statistik kinerja untuk membantu pengendalian pelaksanaan kegiatan.",
-        url: "https://sikendalidlh.pythonanywhere.com/",
-        accent: "#8DB8E9",
-        glow: "rgba(141,184,233,.25)"
-      }
+      {name:"SI-ALIF", tag:"Dokumentasi", description:"Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.", url:"https://dlhmojokertokab.github.io/Si-ALIF", icon:"assets/icon-si-alif.png", accent:"#9AA7FF", glow:"rgba(154,167,255,.20)", shell:"round"},
+      {name:"ASBUN", tag:"Pelayanan", description:"Asistensi Berkas Usaha dan Perizinan untuk memudahkan proses asistensi di Bidang TALING.", url:"https://dlhmojokertokab.github.io/ASBUN", icon:"assets/icon-asbun.png", accent:"#7BE06D", glow:"rgba(123,224,109,.22)", shell:"soft"},
+      {name:"DOKAR", tag:"Dokumen & Arsip", description:"Pusat Dokumen, Arsip, dan Perizinan DLH sebagai pintu layanan arsip serta dokumen digital.", url:"https://dlhmojokertokab.github.io/DOKAR", icon:"assets/icon-dokar.png", accent:"#D39C58", glow:"rgba(211,156,88,.22)", shell:"soft"},
+      {name:"SIKENDALI", tag:"Monitoring", description:"Monitoring target, realisasi, dan statistik kinerja untuk membantu pengendalian pelaksanaan kegiatan.", url:"https://sikendalidlh.pythonanywhere.com/", icon:"assets/icon-sikendali.png", accent:"#49CEF3", glow:"rgba(73,206,243,.22)", shell:"soft"}
     ];
+    const intro = document.getElementById("intro"), selector = document.getElementById("selector"), doorButton = document.getElementById("doorButton"),
+      backBtn = document.getElementById("backBtn"), prevBtn = document.getElementById("prevBtn"), nextBtn = document.getElementById("nextBtn"),
+      appCard = document.getElementById("appCard"), iconShell = document.getElementById("iconShell"), heroIcon = document.getElementById("heroIcon"),
+      miniIcon = document.getElementById("miniIcon"), appIndex = document.getElementById("appIndex"), appTag = document.getElementById("appTag"),
+      appName = document.getElementById("appName"), appText = document.getElementById("appText"), openApp = document.getElementById("openApp"),
+      dots = document.getElementById("dots"), thumbStrip = document.getElementById("thumbStrip");
+    let currentIndex = 0, switchTimer = null;
+    const pad = n => String(n).padStart(2, "0");
 
-    const intro = document.getElementById("intro");
-    const selector = document.getElementById("selector");
-    const doorButton = document.getElementById("doorButton");
-    const backButton = document.getElementById("backButton");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const appPanel = document.getElementById("appPanel");
-    const appIcon = document.getElementById("appIcon");
-    const appCategory = document.getElementById("appCategory");
-    const appNumber = document.getElementById("appNumber");
-    const appName = document.getElementById("appName");
-    const appDescription = document.getElementById("appDescription");
-    const openApp = document.getElementById("openApp");
-    const dots = document.getElementById("dots");
-    const previewRow = document.getElementById("previewRow");
-
-    let currentIndex = 0;
-    let switchTimer = null;
-
-    function pad(num){
-      return String(num).padStart(2,"0");
-    }
-
-    function buildNavigation(){
-      apps.forEach((app,index)=>{
+    function buildIndicators(){
+      apps.forEach((app, idx) => {
         const dot = document.createElement("button");
+        dot.className = "dot" + (idx === currentIndex ? " active" : "");
         dot.type = "button";
-        dot.className = "dot" + (index === currentIndex ? " active" : "");
         dot.setAttribute("aria-label","Pilih " + app.name);
-        dot.addEventListener("click",()=>showApp(index));
+        dot.addEventListener("click", () => showApp(idx));
         dots.appendChild(dot);
 
-        const preview = document.createElement("button");
-        preview.type = "button";
-        preview.className = "preview-btn" + (index === currentIndex ? " active" : "");
-        preview.textContent = app.name;
-        preview.addEventListener("click",()=>showApp(index));
-        previewRow.appendChild(preview);
+        const thumb = document.createElement("button");
+        thumb.className = "thumb" + (idx === currentIndex ? " active" : "");
+        thumb.type = "button";
+        thumb.setAttribute("aria-label","Pilih " + app.name);
+        thumb.innerHTML = `<img src="${app.icon}" alt=""><div class="thumb-name">${app.name}</div>`;
+        thumb.addEventListener("click", () => showApp(idx));
+        thumbStrip.appendChild(thumb);
       });
     }
 
-    function updateNavigation(){
-      [...dots.children].forEach((dot,index)=>{
-        dot.classList.toggle("active",index === currentIndex);
-      });
-      [...previewRow.children].forEach((button,index)=>{
-        button.classList.toggle("active",index === currentIndex);
-      });
+    function updateIndicators(){
+      [...dots.children].forEach((el, idx) => el.classList.toggle("active", idx === currentIndex));
+      [...thumbStrip.children].forEach((el, idx) => el.classList.toggle("active", idx === currentIndex));
     }
 
     function renderApp(){
       const app = apps[currentIndex];
-
-      appIcon.textContent = app.icon;
-      appCategory.textContent = app.category;
-      appNumber.textContent = pad(currentIndex + 1) + " / " + pad(apps.length);
+      document.documentElement.style.setProperty("--app-accent", app.accent);
+      document.documentElement.style.setProperty("--app-glow", app.glow);
+      heroIcon.src = app.icon; heroIcon.alt = "Ikon " + app.name;
+      miniIcon.src = app.icon; miniIcon.alt = "";
+      appIndex.textContent = `${pad(currentIndex + 1)} / ${pad(apps.length)}`;
+      appTag.textContent = app.tag;
       appName.textContent = app.name;
-      appDescription.textContent = app.description;
+      appText.textContent = app.description;
       openApp.href = app.url;
-
-      appPanel.style.setProperty("--app-accent",app.accent);
-      appPanel.style.setProperty("--app-glow",app.glow);
-      updateNavigation();
+      openApp.innerHTML = `Masuk ke ${app.name} <span aria-hidden="true">↗</span>`;
+      if(app.shell === "round"){ iconShell.classList.add("round"); } else { iconShell.classList.remove("round"); }
+      updateIndicators();
     }
 
     function showApp(index){
       if(index < 0) index = apps.length - 1;
       if(index >= apps.length) index = 0;
       if(index === currentIndex) return;
-
       currentIndex = index;
-      appPanel.classList.add("switching");
-
+      appCard.classList.add("switching");
       clearTimeout(switchTimer);
-      switchTimer = setTimeout(()=>{
+      switchTimer = setTimeout(() => {
         renderApp();
-        requestAnimationFrame(()=>{
-          appPanel.classList.remove("switching");
-        });
-      },180);
+        requestAnimationFrame(() => appCard.classList.remove("switching"));
+      }, 170);
     }
 
-    function enterBeranda(){
+    function enterLobby(){
       intro.classList.add("entering");
-
-      setTimeout(()=>{
+      setTimeout(() => {
         intro.classList.add("hidden");
         selector.classList.remove("hidden");
-
-        requestAnimationFrame(()=>{
-          selector.classList.add("active");
-          renderApp();
-          nextBtn.focus({preventScroll:true});
-        });
-      },560);
+        requestAnimationFrame(() => { selector.classList.add("active"); renderApp(); });
+      }, 560);
     }
 
-    function leaveBeranda(){
+    function backToDoor(){
       selector.classList.remove("active");
-
-      setTimeout(()=>{
+      setTimeout(() => {
         selector.classList.add("hidden");
         intro.classList.remove("hidden");
-
-        requestAnimationFrame(()=>{
-          intro.classList.remove("entering");
-          doorButton.focus({preventScroll:true});
-        });
-      },420);
+        requestAnimationFrame(() => intro.classList.remove("entering"));
+      }, 420);
     }
 
-    prevBtn.addEventListener("click",()=>showApp(currentIndex - 1));
-    nextBtn.addEventListener("click",()=>showApp(currentIndex + 1));
-    doorButton.addEventListener("click",enterBeranda);
-    backButton.addEventListener("click",leaveBeranda);
-
-    document.addEventListener("keydown",(event)=>{
+    doorButton.addEventListener("click", enterLobby);
+    backBtn.addEventListener("click", backToDoor);
+    prevBtn.addEventListener("click", () => showApp(currentIndex - 1));
+    nextBtn.addEventListener("click", () => showApp(currentIndex + 1));
+    document.addEventListener("keydown", (e) => {
       if(!selector.classList.contains("active")) return;
-
-      if(event.key === "ArrowLeft"){
-        event.preventDefault();
-        showApp(currentIndex - 1);
-      }
-
-      if(event.key === "ArrowRight"){
-        event.preventDefault();
-        showApp(currentIndex + 1);
-      }
-
-      if(event.key === "Escape"){
-        event.preventDefault();
-        leaveBeranda();
-      }
+      if(e.key === "ArrowLeft"){ e.preventDefault(); showApp(currentIndex - 1); }
+      if(e.key === "ArrowRight"){ e.preventDefault(); showApp(currentIndex + 1); }
+      if(e.key === "Escape"){ e.preventDefault(); backToDoor(); }
     });
 
-    buildNavigation();
+    buildIndicators();
     renderApp();
   </script>
 </body>

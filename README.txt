@@ -1,18 +1,24 @@
-BERANDA v0.3
+BERANDA v1.0 — Interactive Lobby
 
-Struktur:
-BERANDA_v0.3/
-├─ index.html
-└─ assets/
-   └─ logo-dlh.png
+Isi paket:
+- index.html
+- assets/icon-si-alif.png
+- assets/icon-asbun.png
+- assets/icon-dokar.png
+- assets/icon-sikendali.png
 
-Taruh logo milikmu dengan nama:
-assets/logo-dlh.png
-
-Jika logo belum ada, halaman tetap jalan dan memakai ikon daun fallback.
+PENTING:
+- Taruh logo DLH milikmu ke folder assets dengan nama:
+  assets/logo-dlh.png
 
 Aplikasi:
-- SI-ALIF
-- ASBUN
-- LEMARI
-- SIKENDALI
+- SI-ALIF  -> https://dlhmojokertokab.github.io/Si-ALIF
+- ASBUN    -> https://dlhmojokertokab.github.io/ASBUN
+- DOKAR    -> https://dlhmojokertokab.github.io/DOKAR
+- SIKENDALI-> https://sikendalidlh.pythonanywhere.com/
+
+Konsep:
+- Intro cuma BERANDA + pintu kontras tanpa tulisan pada pintu.
+- Klik pintu -> zoom masuk.
+- Selector aplikasi model character select dengan ikon aplikasi asli.
+- Full screen / fixed screen.
