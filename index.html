@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="assets/logo-dlh.png" />
   <link rel="apple-touch-icon" href="assets/logo-dlh.png" />
   <title>BERANDA — Semua Aplikasi, Satu Pintu</title>
-  <!-- v1.1: SI-ALIF circular clip + fixed DLH house logo -->
+  <!-- v1.2: uniform rounded-square app placeholders + fixed DLH house logo -->
   <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi DLH Kabupaten Mojokerto." />
   <style>
     :root{
@@ -151,7 +151,7 @@
           <article id="appCard" class="app-card">
             <div class="app-visual">
               <div class="aura"></div><div class="pedestal"></div>
-              <div id="iconShell" class="icon-shell round">
+              <div id="iconShell" class="icon-shell">
                 <img id="heroIcon" class="hero-icon" src="assets/icon-si-alif.png" alt="Ikon aplikasi" />
               </div>
             </div>
@@ -181,7 +181,7 @@
 
   <script>
     const apps = [
-      {name:"SI-ALIF", tag:"Dokumentasi", description:"Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.", url:"https://dlhmojokertokab.github.io/Si-ALIF", icon:"assets/icon-si-alif.png", accent:"#9AA7FF", glow:"rgba(154,167,255,.20)", shell:"round"},
+      {name:"SI-ALIF", tag:"Dokumentasi", description:"Sistem Informasi Aktivitas, Lokasi, Informasi, dan Foto untuk dokumentasi kegiatan DLH.", url:"https://dlhmojokertokab.github.io/Si-ALIF", icon:"assets/icon-si-alif.png", accent:"#9AA7FF", glow:"rgba(154,167,255,.20)", shell:"soft"},
       {name:"ASBUN", tag:"Pelayanan", description:"Asistensi Berkas Usaha dan Perizinan untuk memudahkan proses asistensi di Bidang TALING.", url:"https://dlhmojokertokab.github.io/ASBUN", icon:"assets/icon-asbun.png", accent:"#7BE06D", glow:"rgba(123,224,109,.22)", shell:"soft"},
       {name:"DOKAR", tag:"Dokumen & Arsip", description:"Pusat Dokumen, Arsip, dan Perizinan DLH sebagai pintu layanan arsip serta dokumen digital.", url:"https://dlhmojokertokab.github.io/DOKAR", icon:"assets/icon-dokar.png", accent:"#D39C58", glow:"rgba(211,156,88,.22)", shell:"soft"},
       {name:"SIKENDALI", tag:"Monitoring", description:"Monitoring target, realisasi, dan statistik kinerja untuk membantu pengendalian pelaksanaan kegiatan.", url:"https://sikendalidlh.pythonanywhere.com/", icon:"assets/icon-sikendali.png", accent:"#49CEF3", glow:"rgba(73,206,243,.22)", shell:"soft"}
@@ -230,7 +230,7 @@
       appText.textContent = app.description;
       openApp.href = app.url;
       openApp.innerHTML = `Masuk ke ${app.name} <span aria-hidden="true">↗</span>`;
-      if(app.shell === "round"){ iconShell.classList.add("round"); } else { iconShell.classList.remove("round"); }
+      iconShell.classList.remove("round");
       updateIndicators();
     }
 
