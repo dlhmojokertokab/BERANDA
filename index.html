@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="assets/logo-dlh.png" />
   <link rel="apple-touch-icon" href="assets/logo-dlh.png" />
   <title>BERANDA — Semua Aplikasi, Satu Pintu</title>
+  <!-- v1.1: SI-ALIF circular clip + fixed DLH house logo -->
   <meta name="description" content="BERANDA — Semua Aplikasi, Satu Pintu. Portal aplikasi DLH Kabupaten Mojokerto." />
   <style>
     :root{
@@ -68,7 +69,7 @@
     .aura{position:absolute;width:min(46vw,380px);height:min(46vw,380px);border-radius:50%;background:radial-gradient(circle, var(--app-glow), transparent 66%);filter:blur(8px)}
     .pedestal{position:absolute;bottom:44px;width:68%;height:32px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(0,0,0,.45), transparent 67%);filter:blur(5px);opacity:.95}
     .icon-shell{width:min(80%,340px);aspect-ratio:1 / 1;border-radius:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03));display:flex;align-items:center;justify-content:center;padding:16px;position:relative;z-index:2;box-shadow:0 20px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.06)}
-    .icon-shell.round{border-radius:50%}
+    .icon-shell.round{border-radius:50%;overflow:hidden}
     .hero-icon{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 34px rgba(0,0,0,.16));user-select:none;-webkit-user-drag:none}
     .app-info{min-width:0;min-height:0;padding:36px 34px 34px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
     .mini-brand{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
@@ -156,7 +157,7 @@
             </div>
             <div class="app-info">
               <div class="mini-brand">
-                <img id="miniIcon" src="assets/icon-si-alif.png" alt="" />
+                <img src="assets/logo-dlh.png" alt="Logo DLH Kabupaten Mojokerto" />
                 <span>Dinas Lingkungan Hidup Kabupaten Mojokerto</span>
               </div>
               <div id="appIndex" class="app-index">01 / 04</div>
@@ -188,7 +189,7 @@
     const intro = document.getElementById("intro"), selector = document.getElementById("selector"), doorButton = document.getElementById("doorButton"),
       backBtn = document.getElementById("backBtn"), prevBtn = document.getElementById("prevBtn"), nextBtn = document.getElementById("nextBtn"),
       appCard = document.getElementById("appCard"), iconShell = document.getElementById("iconShell"), heroIcon = document.getElementById("heroIcon"),
-      miniIcon = document.getElementById("miniIcon"), appIndex = document.getElementById("appIndex"), appTag = document.getElementById("appTag"),
+      appIndex = document.getElementById("appIndex"), appTag = document.getElementById("appTag"),
       appName = document.getElementById("appName"), appText = document.getElementById("appText"), openApp = document.getElementById("openApp"),
       dots = document.getElementById("dots"), thumbStrip = document.getElementById("thumbStrip");
     let currentIndex = 0, switchTimer = null;
@@ -223,7 +224,6 @@
       document.documentElement.style.setProperty("--app-accent", app.accent);
       document.documentElement.style.setProperty("--app-glow", app.glow);
       heroIcon.src = app.icon; heroIcon.alt = "Ikon " + app.name;
-      miniIcon.src = app.icon; miniIcon.alt = "";
       appIndex.textContent = `${pad(currentIndex + 1)} / ${pad(apps.length)}`;
       appTag.textContent = app.tag;
       appName.textContent = app.name;
